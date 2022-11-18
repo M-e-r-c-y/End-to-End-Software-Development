@@ -105,9 +105,7 @@ if(isset($_POST['add_to_cart'])){
          <p><white><b><i>Staying safe at home, is a priority, we help make it possible!</i></b></white></p>
          <a href="about.php" class="btn">about us</a>
       </div>
-
    </section>
-
 </div>
 
 <section class="home-category">
@@ -144,8 +142,27 @@ if(isset($_POST['add_to_cart'])){
          <a href="category.php?category=fish" class="btn">fish</a>
       </div>
 
-   </div>
+      <div class="box">
+         <img src="images/dairy.jpg" alt="">
+         <h3>Dairy</h3>
+         <p>organic dairy packed with all the best Nutrient!</p>
+         <a href="category.php?category=dairy" class="btn">dairy</a>
+      </div>
 
+      <div class="box">
+         <img src="images/snacks.png" alt="">
+         <h3>Snacks</h3>
+         <p>organic dairy packed with all the best Nutrient!</p>
+         <a href="category.php?category=snacks" class="btn">snacks</a>
+      </div>
+
+      <div class="box">
+         <img src="images/beverages.jpg" alt="">
+         <h3>Beverages</h3>
+         <p>organic dairy packed with all the best Nutrient!</p>
+         <a href="category.php?category=beverages" class="btn">beverages</a>
+      </div>
+   </div>
 </section>
 
 
