@@ -133,7 +133,8 @@
 }
 
 .products .box-container .box img{
-   width: 100%;
+   width: auto;
+   height: 200px;
    margin-bottom: 1rem;
 }
 
