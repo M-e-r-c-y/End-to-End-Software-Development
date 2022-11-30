@@ -82,7 +82,7 @@ if(isset($_POST['add_to_cart'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>home page</title>
+   <title>search page</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -95,60 +95,62 @@ if(isset($_POST['add_to_cart'])){
 
 <?php include 'header.php'; ?>
 
-<div class="home-bg">
+<section class="search-form">
 
-   <section class="home">
+   <form action="" method="POST">
+      <input type="text" class="box" name="search_box" placeholder="search products...">
+      <input type="submit" name="search_btn" value="search" class="btn">
+   </form>
 
-      <div class="content">
-         <span>Grociers To Your Door!</span>
-         <h3>Healthier You With Organic Foods</h3>
-         <p><white><b><i>Staying safe at home, is a priority, we help make it possible!</i></b></white></p>
-         <a href="about.php" class="btn">about us</a>
-      </div>
+</section>
 
-   </section>
+<?php
 
-</div>
 
-<section class="home-category">
 
-   <h1 class="title">shop by category</h1>
+?>
+
+<section class="products" style="padding-top: 0; min-height:100vh;">
 
    <div class="box-container">
 
-      <div class="box">
-         <img src="images/cat-1.png" alt="">
-         <h3>fruits</h3>
-         <p>Fresh, Organic Fruit straight from farm to your table!</p>
-         <a href="category.php?category=fruits" class="btn">fruits</a>
-      </div>
+   <?php
+      if(isset($_POST['search_btn'])){
+      $search_box = $_POST['search_box'];
+      $search_box = filter_var($search_box, FILTER_SANITIZE_STRING);
+      $select_products = $conn->prepare("SELECT * FROM `products` WHERE name LIKE '%{$search_box}%' OR category LIKE '%{$search_box}%'");
+      $select_products->execute();
+      if($select_products->rowCount() > 0){
+         while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){
+   ?>
+   <form action="" class="box" method="POST">
+      <div class="price">$<span><?= $fetch_products['price']; ?></span>/lb</div>
+      <a href="view_page.php?pid=<?= $fetch_products['id']; ?>" class="fas fa-eye"></a>
+      <img src="uploaded_img/<?= $fetch_products['image']; ?>" alt="">
+      <div class="name"><?= $fetch_products['name']; ?></div>
+      <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
+      <input type="hidden" name="p_name" value="<?= $fetch_products['name']; ?>">
+      <input type="hidden" name="p_price" value="<?= $fetch_products['price']; ?>">
+      <input type="hidden" name="p_image" value="<?= $fetch_products['image']; ?>">
+      <div class="flex-btn">
+        <input type="number" min="1" value="1" name="p_qty" class="qty">
+          <div class="name">  <h3>lb</h3> </div>
+          </div>
+      <input type="submit" value="add to wishlist" class="option-btn" name="add_to_wishlist">
+      <input type="submit" value="add to cart" class="btn" name="add_to_cart">
+   </form>
+   <?php
+         }
+      }else{
+         echo '<p class="empty">no result found!</p>';
+      }
 
-      <div class="box">
-         <img src="images/cat-3.png" alt="">
-         <h3>vegitables</h3>
-         <p>Fresh, Organic Vegatables; straight from farm to your table </p>
-         <a href="category.php?category=vegitables" class="btn">vegitables</a>
-      </div>
-
-      <div class="box">
-         <img src="images/cat-2.png" alt="">
-         <h3>meat</h3>
-         <p>Locally sorced organic meat.</p>
-         <a href="category.php?category=meat" class="btn">meat</a>
-      </div>
-
-      <div class="box">
-         <img src="images/dairy.jpg" alt="">
-         <h3>dairy</h3>
-         <p>organic dairy packed with all the best Nutrient!</p>
-         <a href="category.php?category=dairy" class="btn">dairy</a>
-      </div>
+   };
+   ?>
 
    </div>
 
 </section>
-
-
 
 
 
