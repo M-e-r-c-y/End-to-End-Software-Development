@@ -1,5 +1,4 @@
 # CMPE131_Team3
-CMPE 131
 <b>Online Food Store</b> 🌱
 
 <b>Problem statement</b>
